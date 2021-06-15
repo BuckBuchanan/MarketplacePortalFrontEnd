@@ -6,6 +6,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import {url} from '../globals'
+
 const Login = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +24,7 @@ const Login = props => {
 
   async function handleSubmit(e){
     e.preventDefault();
-    fetch('http://13.58.10.109/token-auth/', {
+    fetch(url+'token-auth/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
