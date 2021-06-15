@@ -45,12 +45,14 @@ class DataTable extends React.Component {
 
 
   componentDidMount() {
+
   console.log(this.props.url+this.props.api_call)
   fetch(this.props.url+this.props.api_call, {headers: {Authorization: `JWT ${localStorage.getItem('token')}`}}
     )
     .then(response => {
       if (response.status > 400) {
-
+        localStorage.clear();
+        window.location.href = '/';
       }
       return response.json();
     })
