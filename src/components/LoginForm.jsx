@@ -11,6 +11,7 @@ import {url} from '../globals'
 const Login = props => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
 
   function validateForm() {
     return username.length > 0 && password.length > 0;
@@ -20,7 +21,7 @@ const Login = props => {
     return localStorage.getItem('token')
   }
 
- 
+
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -33,16 +34,25 @@ const Login = props => {
     })
       .then(res => res.json())
       .then(json => {
-        localStorage.setItem('token', json.token);
-        console.log(json);
         console.log(json.token);
-        window.location.reload();
+        if (json.token != undefined){
+          localStorage.setItem('token', json.token);
+          console.log(json);
+          console.log(json.token);
+          window.location.reload();
+        } else {
+          setErrors("Incorrect Login Request")
+        }
+
+
       });
   };
-  if (getToken()){
+
+  if (getToken() && getToken() !== "undefined"){
+    console.log(getToken());
     return <Redirect push to={"/home"}/>;
   }
-  else{
+
   return (
     <div className="Login">
       <Form onSubmit={e => handleSubmit(e)}>
@@ -62,14 +72,16 @@ const Login = props => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <div style={{ color: 'red' }}>{errors}</div>
         </Form.Group>
         <Button block size="lg" type="submit" disabled={!validateForm()}>
           Login
         </Button>
+
       </Form>
+
     </div>
   );
-  }
 }
 
 export default Login;
