@@ -16,7 +16,7 @@ const RowRenderer = ({ renderBaseRow, ...props }) => {
 const FbaInventoryAdjustmentsPage = () => {
   return (
     <DashboardLayout>
-      <h2>FBA Inventory Ajdustments</h2>
+      <h2>FBA Inventory Adjustments</h2>
       <DataTable
         url={url}
         api_call={"amazon_fba_api/fba_inventory_adjustments/"}
